@@ -7,10 +7,17 @@ class Usuario
 
     private $nome;
     private $sobrenome;
+    private $senha;
 
-    public function __construct(string $nome)
+    public function __construct(string $nome, string $senha)
     {
         $this->setNomeSobrenome($nome);
+        $this->setSenha($senha);
+    }
+
+    public function setSenha(string $senha)
+    {
+        $this->senha = $this->validaSenha($senha);
     }
 
     private function setNomeSobrenome(string $nome)
@@ -39,5 +46,20 @@ class Usuario
     public function getSobrenome(): string
     {
         return $this->sobrenome;
+    }
+
+    public function getSenha():string
+    {
+        return $this->senha;
+    }
+
+    public function validaSenha(string $senha): string
+    {
+        $tamanho = strlen(trim($senha)); //Remove o espaço somente do fim e do início
+        if ($tamanho >= 6) {
+            return $senha."São $tamanho caráctes";
+        } else {
+            return "Senha com quantidade de carácteres menor do que 6!";
+        }
     }
 }
